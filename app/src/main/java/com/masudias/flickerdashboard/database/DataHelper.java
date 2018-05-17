@@ -41,6 +41,8 @@ public class DataHelper {
 
         long rowIdOfSavedPhoto = -1;
 
+        if (!photo.isValid()) return -1;
+
         if (photo != null) {
             SQLiteDatabase db = dOpenHelper.getWritableDatabase();
             db.beginTransaction();
@@ -78,6 +80,8 @@ public class DataHelper {
 
             try {
                 for (Photo photo : photoList) {
+                    if (!photo.isValid()) continue;
+                    
                     ContentValues values = new ContentValues();
                     values.put(DBConstants.KEY_PHOTO_ID, photo.photoId);
                     values.put(DBConstants.KEY_PHOTO_URL, photo.photoUrl);

@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import com.masudias.flickerdashboard.R;
 
-public class PlaceholderFragment extends Fragment {
+public class SportsFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public PlaceholderFragment() {
+    public SportsFragment() {
     }
 
-    public static PlaceholderFragment newInstance(int sectionNumber) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    public static SportsFragment newInstance(int sectionNumber) {
+        SportsFragment fragment = new SportsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

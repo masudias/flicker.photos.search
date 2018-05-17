@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.masudias.flickerdashboard.fragments.PlaceholderFragment;
+import com.masudias.flickerdashboard.fragments.SportsFragment;
 
 public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
@@ -16,7 +16,7 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PlaceholderFragment.newInstance(position + 1);
+        return SportsFragment.newInstance(position + 1);
     }
 
     @Override

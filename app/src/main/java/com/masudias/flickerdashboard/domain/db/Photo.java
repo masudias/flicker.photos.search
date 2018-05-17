@@ -10,6 +10,17 @@ public class Photo {
     public Integer width;
     public Integer photoSource;
 
+    public boolean isValid() {
+        return photoId != null
+                && photoUrl != null
+                && owner != null
+                && ownerPhotoUrl != null
+                && title != null
+                && height != null
+                && width != null
+                && photoSource != null;
+    }
+
     private Photo(Builder builder) {
         photoId = builder.photoId;
         photoUrl = builder.photoUrl;
