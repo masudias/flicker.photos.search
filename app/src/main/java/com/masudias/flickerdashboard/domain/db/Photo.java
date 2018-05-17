@@ -71,12 +71,26 @@ public class Photo {
         }
 
         public Builder height(Integer val) {
-            height = val;
+            if (val != null) height = val;
+            else height = 0;
+            return this;
+        }
+
+        public Builder height(String val) {
+            if (val != null) height = Integer.parseInt(val);
+            else height = 0;
             return this;
         }
 
         public Builder width(Integer val) {
-            width = val;
+            if (val != null) width = val;
+            else width = 0;
+            return this;
+        }
+
+        public Builder width(String val) {
+            if (val != null) width = Integer.parseInt(val);
+            else width = 0;
             return this;
         }
 

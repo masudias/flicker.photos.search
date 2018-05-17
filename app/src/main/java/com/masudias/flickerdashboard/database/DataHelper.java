@@ -123,6 +123,7 @@ public class DataHelper {
 
     public void deleteAllPhotos() {
         SQLiteDatabase db = dOpenHelper.getWritableDatabase();
+        db.beginTransaction();
 
         try {
             String queryString = "DELETE FROM " + DBConstants.DB_TABLE_PHOTO;

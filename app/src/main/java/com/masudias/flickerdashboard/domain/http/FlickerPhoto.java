@@ -26,8 +26,8 @@ public class FlickerPhoto implements PhotoMaker {
                 .owner(this.owner)
                 .ownerPhotoUrl(getPhotoOwnerUrl())
                 .title(this.title)
-                .height(Integer.parseInt(this.height_o))
-                .width(Integer.parseInt(this.width_o))
+                .height(this.height_o)
+                .width(this.width_o)
                 .photoSource(getPhotoSource())
                 .build();
     }

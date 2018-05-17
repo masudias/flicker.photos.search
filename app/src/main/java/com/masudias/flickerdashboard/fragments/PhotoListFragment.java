@@ -42,8 +42,8 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_photo_list, container, false);
-        emptyTextView = (TextView) getActivity().findViewById(R.id.photo_list_empty);
-        photoListRecyclerView = (RecyclerView) getActivity().findViewById(R.id.photo_list);
+        emptyTextView = (TextView) rootView.findViewById(R.id.photo_list_empty);
+        photoListRecyclerView = (RecyclerView) rootView.findViewById(R.id.photo_list);
         mLayoutManager = new LinearLayoutManager(getActivity());
         photoListRecyclerView.setLayoutManager(mLayoutManager);
 
