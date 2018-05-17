@@ -63,7 +63,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ownerImageView = (ImageView) itemView.findViewById(R.id.owner_photo);
             imageTitleTextView = (TextView) itemView.findViewById(R.id.title);
             ownerNameTextView = (TextView) itemView.findViewById(R.id.name);
-            imageDimensionsTextView = (TextView) itemView.findViewById(R.id.dimensions);
+            imageDimensionsTextView = (TextView) itemView.findViewById(R.id.photo_dimension);
             imageSizeTextView = (TextView) itemView.findViewById(R.id.photo_size);
         }
 
