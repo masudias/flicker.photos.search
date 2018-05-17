@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.masudias.flickerdashboard.fragments.SportsFragment;
+import com.masudias.flickerdashboard.fragments.PhotoListFragment;
 
 public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
@@ -16,7 +16,7 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return SportsFragment.newInstance(position + 1);
+        return PhotoListFragment.newInstance("sports"); // TODO: Change the hard coded value
     }
 
     @Override
