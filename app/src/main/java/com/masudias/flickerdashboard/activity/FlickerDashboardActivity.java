@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.adapter.DashboardPagerAdapter;
+import com.masudias.flickerdashboard.util.Constants;
+import com.masudias.flickerdashboard.util.TestUtil;
 
 public class FlickerDashboardActivity extends AppCompatActivity {
 
@@ -36,6 +38,12 @@ public class FlickerDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flicker_dashboard);
         setupViewElements();
+
+        if (Constants.DEBUG)
+            TestUtil.insertDummyDataIntoPhotosTable(this);
+        else {
+            // TODO: Get the data using Flicker API
+        }
     }
 
     private void setupViewElements() {

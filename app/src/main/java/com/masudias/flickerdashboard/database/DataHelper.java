@@ -81,7 +81,7 @@ public class DataHelper {
             try {
                 for (Photo photo : photoList) {
                     if (!photo.isValid()) continue;
-                    
+
                     ContentValues values = new ContentValues();
                     values.put(DBConstants.KEY_PHOTO_ID, photo.photoId);
                     values.put(DBConstants.KEY_PHOTO_URL, photo.photoUrl);
@@ -119,5 +119,23 @@ public class DataHelper {
         }
 
         return cursor;
+    }
+
+    public void deleteAllPhotos() {
+        SQLiteDatabase db = dOpenHelper.getWritableDatabase();
+
+        try {
+            String queryString = "DELETE FROM " + DBConstants.DB_TABLE_PHOTO;
+            db.rawQuery(queryString, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.setTransactionSuccessful();
+        db.endTransaction();
+
+        context.getContentResolver().notifyChange(DBConstants.DB_TABLE_PHOTO_URI, null);
+
+        Log.d("DELETE", "All Photos Deleted.");
     }
 }

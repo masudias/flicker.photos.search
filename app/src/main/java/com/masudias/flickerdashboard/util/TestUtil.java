@@ -1406,6 +1406,7 @@ public class TestUtil {
         for (FlickerPhoto photo : response.photos.photo)
             photoList.add(photo.getPhoto());
 
+        DataHelper.getInstance(context).deleteAllPhotos();
         DataHelper.getInstance(context).insertPhotoListIntoDatabase(photoList);
     }
 }
