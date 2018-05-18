@@ -1,15 +1,18 @@
 package com.masudias.flickerdashboard.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.adapter.DashboardPagerAdapter;
 import com.masudias.flickerdashboard.util.Constants;
+import com.masudias.flickerdashboard.util.NetworkUtil;
 import com.masudias.flickerdashboard.util.TestUtil;
 
 public class FlickerDashboardActivity extends AppCompatActivity {
@@ -21,6 +24,8 @@ public class FlickerDashboardActivity extends AppCompatActivity {
     private final int ARTS_TAB = 1;
     private final int FAVOURITE_TAB = 2;
     private final int MUSIC_TAB = 3;
+
+    private RelativeLayout parentLayout;
 
     private TabLayout.Tab sportsTab;
     private TabLayout.Tab artsTab;
@@ -38,6 +43,7 @@ public class FlickerDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flicker_dashboard);
         setupViewElements();
+        showSnackBarWhenConnectionNotAvailable();
 
         if (Constants.DEBUG)
             TestUtil.insertDummyDataIntoPhotosTable(this);
@@ -46,7 +52,13 @@ public class FlickerDashboardActivity extends AppCompatActivity {
         }
     }
 
+    private void showSnackBarWhenConnectionNotAvailable() {
+        if (!NetworkUtil.isConnectionAvailable(this))
+            Snackbar.make(parentLayout, R.string.no_connection, Snackbar.LENGTH_LONG).show();
+    }
+
     private void setupViewElements() {
+        parentLayout = (RelativeLayout) findViewById(R.id.parent_layout);
         setupViewPager();
         setupTabs();
     }
