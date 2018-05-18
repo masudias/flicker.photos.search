@@ -1,6 +1,6 @@
 package com.masudias.flickerdashboard.domain.http;
 
-public class FlickerPhotos {
+public class FlickrPhotos {
     public String total;
     public String page;
     public String pages;
