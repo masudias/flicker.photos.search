@@ -3,6 +3,7 @@ package com.masudias.flickerdashboard.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.database.DBConstants;
 
@@ -80,9 +83,14 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             final int imageWidth = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_PHOTO_WIDTH));
             final String imageDimension = imageHeight + "x" + imageWidth;
 
+            RequestOptions requestOptions = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.mipmap.ic_image_loader_placeholder)
+                    .error(R.mipmap.ic_image_loading_error);
+
             try {
-                Glide.with(context).load((photoUrl)).into(photoImageView);
-                Glide.with(context).load(ownerPhotoUrl).into(ownerImageView);
+                Glide.with(context).load((photoUrl)).apply(requestOptions).into(photoImageView);
+                Glide.with(context).load(ownerPhotoUrl).apply(requestOptions).into(ownerImageView);
             } catch (Exception e) {
                 e.printStackTrace();
             }
