@@ -12,10 +12,13 @@ import com.google.gson.Gson;
 import com.masudias.flickerdashboard.domain.http.response.FlickrSearchResponse;
 import com.masudias.flickerdashboard.network.parser.FlickrImageResponseParser;
 import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
+import com.masudias.flickerdashboard.util.NetworkUtil;
 
 public class GetFlickrImagesREST {
 
     public static void getFlickrImages(final Context context, String tag, final int page, final PhotosResponseReceiver listener) {
+        if (!NetworkUtil.isConnectionAvailable(context)) return;
+
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = NetworkConstants.getUrlForFlickrImage(tag, page);
 

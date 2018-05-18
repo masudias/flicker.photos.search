@@ -19,7 +19,6 @@ import com.masudias.flickerdashboard.database.DataHelper;
 import com.masudias.flickerdashboard.database.SQLiteCursorLoader;
 
 public class PhotoListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String ARG_SEARCH_TAG = "search_tag";
     private static final int PHOTO_LIST_QUERY_LOADER = 0;
 
     private TextView emptyTextView;
@@ -27,29 +26,22 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
     private PhotoListAdapter photoListAdapter;
     private LinearLayoutManager mLayoutManager;
 
-    public PhotoListFragment() {
-    }
-
-    public static PhotoListFragment newInstance(String searchTag) {
-        PhotoListFragment fragment = new PhotoListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_SEARCH_TAG, searchTag);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_photo_list, container, false);
-        emptyTextView = (TextView) rootView.findViewById(R.id.photo_list_empty);
-        photoListRecyclerView = (RecyclerView) rootView.findViewById(R.id.photo_list);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        photoListRecyclerView.setLayoutManager(mLayoutManager);
+        setupViewElements(rootView);
 
         getActivity().getSupportLoaderManager()
                 .initLoader(PHOTO_LIST_QUERY_LOADER, null, this).forceLoad();
         return rootView;
+    }
+
+    private void setupViewElements(View rootView) {
+        emptyTextView = (TextView) rootView.findViewById(R.id.photo_list_empty);
+        photoListRecyclerView = (RecyclerView) rootView.findViewById(R.id.photo_list);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        photoListRecyclerView.setLayoutManager(mLayoutManager);
     }
 
     @Override
