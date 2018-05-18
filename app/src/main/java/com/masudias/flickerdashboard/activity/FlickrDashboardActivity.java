@@ -11,11 +11,17 @@ import android.widget.RelativeLayout;
 
 import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.adapter.DashboardPagerAdapter;
+import com.masudias.flickerdashboard.database.DataHelper;
+import com.masudias.flickerdashboard.domain.db.Photo;
+import com.masudias.flickerdashboard.network.GetFlickrImagesREST;
+import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
 import com.masudias.flickerdashboard.util.ApplicationConstants;
 import com.masudias.flickerdashboard.util.NetworkUtil;
 import com.masudias.flickerdashboard.util.TestUtil;
 
-public class FlickrDashboardActivity extends AppCompatActivity {
+import java.util.List;
+
+public class FlickrDashboardActivity extends AppCompatActivity implements PhotosResponseReceiver {
 
     private DashboardPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -48,7 +54,8 @@ public class FlickrDashboardActivity extends AppCompatActivity {
         if (ApplicationConstants.DEBUG)
             TestUtil.insertDummyDataIntoPhotosTable(this);
         else {
-            // TODO: Get the data using Flicker API
+            GetFlickrImagesREST
+                    .getFlickrImages(FlickrDashboardActivity.this, "nature", 1, this);
         }
     }
 
@@ -115,5 +122,11 @@ public class FlickrDashboardActivity extends AppCompatActivity {
         ((ImageView) artsTabView.findViewById(R.id.tab_icon)).setImageResource(R.drawable.ic_tab_arts);
         ((ImageView) favouriteTabView.findViewById(R.id.tab_icon)).setImageResource(R.drawable.ic_tab_favourite);
         ((ImageView) musicTabView.findViewById(R.id.tab_icon)).setImageResource(R.drawable.ic_tab_music);
+    }
+
+    @Override
+    synchronized public void onPhotosReceived(List<Photo> photoList) {
+        DataHelper.getInstance(FlickrDashboardActivity.this)
+                .insertPhotoListIntoDatabase(photoList);
     }
 }
