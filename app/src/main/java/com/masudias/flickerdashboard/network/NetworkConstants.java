@@ -8,16 +8,15 @@ public class NetworkConstants {
     private static final String FLICKR_SEARCH_METHOD = "flickr.photos.search";
 
     public static String getUrlForFlickrImage(String tag, int page) {
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("https")
-                .authority(FLICKR_BASE_URL)
-                .appendQueryParameter("method", FLICKR_SEARCH_METHOD)
-                .appendQueryParameter("api_key", FLICKR_API_KEY)
-                .appendQueryParameter("page", page + "")
-                .appendQueryParameter("format", "json")
-                .appendQueryParameter("nojsoncallback", "1")
-                .appendQueryParameter("tags", tag)
-                .appendQueryParameter("extras", "url_o");
-        return builder.build().toString();
+        Uri.Builder uri = Uri.parse(FLICKR_BASE_URL).buildUpon();
+        uri.appendQueryParameter("method", FLICKR_SEARCH_METHOD);
+        uri.appendQueryParameter("api_key", FLICKR_API_KEY);
+        uri.appendQueryParameter("page", page + "");
+        uri.appendQueryParameter("format", "json");
+        uri.appendQueryParameter("nojsoncallback", "1");
+        uri.appendQueryParameter("tags", tag);
+        uri.appendQueryParameter("extras", "url_o");
+
+        return uri.build().toString();
     }
 }

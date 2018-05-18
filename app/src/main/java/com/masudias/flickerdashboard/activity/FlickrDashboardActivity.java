@@ -55,7 +55,7 @@ public class FlickrDashboardActivity extends AppCompatActivity implements Photos
             TestUtil.insertDummyDataIntoPhotosTable(this);
         else {
             GetFlickrImagesREST
-                    .getFlickrImages(FlickrDashboardActivity.this, "nature", 1, this);
+                    .getFlickrImages(FlickrDashboardActivity.this, "sports", 1, this);
         }
     }
 
