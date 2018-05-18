@@ -27,5 +27,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".provider.PhotoContentProvider"
+            android:authorities="com.masudias.flickerdashboard"
+            android:exported="false" />
+        <provider
+            android:name=".provider.DatabaseContentProvider"
+            android:authorities="com.masudias.flickerdashboard"
+            android:exported="false" />
     </application>
 </manifest>

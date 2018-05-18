@@ -80,8 +80,12 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             final int imageWidth = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_PHOTO_WIDTH));
             final String imageDimension = imageHeight + "x" + imageWidth;
 
-            Glide.with(context).load(photoUrl).into(photoImageView);
-            Glide.with(context).load(ownerPhotoUrl).into(ownerImageView);
+            try {
+                Glide.with(context).load((photoUrl)).into(photoImageView);
+                Glide.with(context).load(ownerPhotoUrl).into(ownerImageView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             imageTitleTextView.setText(title);
             ownerNameTextView.setText(ownerName);
