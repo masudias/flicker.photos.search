@@ -88,7 +88,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     .error(R.mipmap.ic_image_loading_error);
 
             try {
-                Glide.with(context).asBitmap().load((photoUrl)).apply(requestOptions).into(photoImageView);
+                Glide.with(context).load((photoUrl)).apply(requestOptions).into(photoImageView);
                 Glide.with(context).load(ownerPhotoUrl).apply(requestOptions).into(ownerImageView);
             } catch (Exception e) {
                 e.printStackTrace();
