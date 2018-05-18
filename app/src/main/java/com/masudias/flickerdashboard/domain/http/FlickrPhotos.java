@@ -4,6 +4,6 @@ public class FlickrPhotos {
     public String total;
     public String page;
     public String pages;
-    public FlickerPhoto[] photo;
+    public FlickrPhoto[] photo;
     public String perpage;
 }

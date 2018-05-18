@@ -7,7 +7,7 @@ public class NetworkConstants {
     private static final String FLICKR_BASE_URL = "https://api.flickr.com/services/rest/";
     private static final String FLICKR_SEARCH_METHOD = "flickr.photos.search";
 
-    public static String getUrlForFlickerImage(String tag, int page) {
+    public static String getUrlForFlickrImage(String tag, int page) {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
                 .authority(FLICKR_BASE_URL)

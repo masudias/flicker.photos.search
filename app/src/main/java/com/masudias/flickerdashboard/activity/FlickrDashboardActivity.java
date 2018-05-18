@@ -15,7 +15,7 @@ import com.masudias.flickerdashboard.util.ApplicationConstants;
 import com.masudias.flickerdashboard.util.NetworkUtil;
 import com.masudias.flickerdashboard.util.TestUtil;
 
-public class FlickerDashboardActivity extends AppCompatActivity {
+public class FlickrDashboardActivity extends AppCompatActivity {
 
     private DashboardPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -41,7 +41,7 @@ public class FlickerDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flicker_dashboard);
+        setContentView(R.layout.activity_flickr_dashboard);
         setupViewElements();
         showSnackBarWhenConnectionNotAvailable();
 

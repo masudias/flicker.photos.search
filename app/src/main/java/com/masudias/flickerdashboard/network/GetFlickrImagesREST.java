@@ -15,9 +15,9 @@ import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
 
 public class GetFlickrImagesREST {
 
-    public static void getFlickerImages(final Context context, String tag, final int page, final PhotosResponseReceiver listener) {
+    public static void getFlickrImages(final Context context, String tag, final int page, final PhotosResponseReceiver listener) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = NetworkConstants.getUrlForFlickerImage(tag, page);
+        String url = NetworkConstants.getUrlForFlickrImage(tag, page);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

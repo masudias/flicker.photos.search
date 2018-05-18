@@ -4,7 +4,7 @@ import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.domain.db.PhotoMaker;
 import com.masudias.flickerdashboard.network.parser.PhotoHttpResponse;
 
-public class FlickerPhoto implements PhotoMaker {
+public class FlickrPhoto implements PhotoMaker {
 
     public String id;
     public String owner;
@@ -45,6 +45,6 @@ public class FlickerPhoto implements PhotoMaker {
 
     @Override
     public int getPhotoSource() {
-        return PhotoHttpResponse.PHOTO_SOURCE_FLICKER;
+        return PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
     }
 }

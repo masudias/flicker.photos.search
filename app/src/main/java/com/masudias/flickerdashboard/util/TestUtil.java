@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.masudias.flickerdashboard.database.DataHelper;
 import com.masudias.flickerdashboard.domain.db.Photo;
-import com.masudias.flickerdashboard.domain.http.FlickerPhoto;
+import com.masudias.flickerdashboard.domain.http.FlickrPhoto;
 import com.masudias.flickerdashboard.domain.http.response.FlickrSearchResponse;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TestUtil {
 
-    private static String dummyDataFromFlicker = "{\n" +
+    private static String dummyDataFromFlickr = "{\n" +
             "    \"photos\": {\n" +
             "        \"page\": 1,\n" +
             "        \"pages\": 3592,\n" +
@@ -1400,10 +1400,10 @@ public class TestUtil {
 
     public static void insertDummyDataIntoPhotosTable(Context context) {
         Gson gson = new Gson();
-        FlickrSearchResponse response = gson.fromJson(dummyDataFromFlicker, FlickrSearchResponse.class);
+        FlickrSearchResponse response = gson.fromJson(dummyDataFromFlickr, FlickrSearchResponse.class);
         List<Photo> photoList = new ArrayList<Photo>();
 
-        for (FlickerPhoto photo : response.photos.photo)
+        for (FlickrPhoto photo : response.photos.photo)
             photoList.add(photo.getPhoto());
 
         DataHelper.getInstance(context).deleteAllPhotos();
