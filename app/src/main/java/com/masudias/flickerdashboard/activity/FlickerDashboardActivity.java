@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.adapter.DashboardPagerAdapter;
-import com.masudias.flickerdashboard.util.Constants;
+import com.masudias.flickerdashboard.util.ApplicationConstants;
 import com.masudias.flickerdashboard.util.NetworkUtil;
 import com.masudias.flickerdashboard.util.TestUtil;
 
@@ -45,7 +45,7 @@ public class FlickerDashboardActivity extends AppCompatActivity {
         setupViewElements();
         showSnackBarWhenConnectionNotAvailable();
 
-        if (Constants.DEBUG)
+        if (ApplicationConstants.DEBUG)
             TestUtil.insertDummyDataIntoPhotosTable(this);
         else {
             // TODO: Get the data using Flicker API

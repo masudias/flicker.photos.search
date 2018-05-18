@@ -2,14 +2,14 @@ package com.masudias.flickerdashboard.database;
 
 import android.net.Uri;
 
-import com.masudias.flickerdashboard.util.Constants;
+import com.masudias.flickerdashboard.util.ApplicationConstants;
 
 public class DBConstants {
-    public static final String DB_PATH = "/data/data/" + Constants.ApplicationPackage + "/databases/";
+    public static final String DB_PATH = "/data/data/" + ApplicationConstants.ApplicationPackage + "/databases/";
     public static final String DB_FLICKER = "flicker";
     public static final String DB_TABLE_PHOTO = "photo";
     public static final Uri DB_TABLE_PHOTO_URI = Uri
-            .parse("sqlite://" + Constants.ApplicationPackage + "/" + DB_TABLE_PHOTO);
+            .parse("sqlite://" + ApplicationConstants.ApplicationPackage + "/" + DB_TABLE_PHOTO);
 
     // Photo table columns
     public static final String KEY_ID = "id";

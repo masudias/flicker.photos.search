@@ -3,11 +3,11 @@ package com.masudias.flickerdashboard.provider;
 import android.content.ContentResolver;
 import android.net.Uri;
 
-import com.masudias.flickerdashboard.util.Constants;
+import com.masudias.flickerdashboard.util.ApplicationConstants;
 
 public class PhotoContract {
 
-    public static final String CONTENT_AUTHORITY = Constants.ApplicationPackage;
+    public static final String CONTENT_AUTHORITY = ApplicationConstants.ApplicationPackage;
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
