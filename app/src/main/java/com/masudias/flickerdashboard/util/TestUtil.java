@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.masudias.flickerdashboard.database.DataHelper;
 import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.domain.http.FlickerPhoto;
-import com.masudias.flickerdashboard.domain.http.response.FlickerSearchResponse;
+import com.masudias.flickerdashboard.domain.http.response.FlickrSearchResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1400,7 +1400,7 @@ public class TestUtil {
 
     public static void insertDummyDataIntoPhotosTable(Context context) {
         Gson gson = new Gson();
-        FlickerSearchResponse response = gson.fromJson(dummyDataFromFlicker, FlickerSearchResponse.class);
+        FlickrSearchResponse response = gson.fromJson(dummyDataFromFlicker, FlickrSearchResponse.class);
         List<Photo> photoList = new ArrayList<Photo>();
 
         for (FlickerPhoto photo : response.photos.photo)

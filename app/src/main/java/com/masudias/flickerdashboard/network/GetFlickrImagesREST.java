@@ -9,7 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.masudias.flickerdashboard.domain.http.response.FlickerSearchResponse;
+import com.masudias.flickerdashboard.domain.http.response.FlickrSearchResponse;
 import com.masudias.flickerdashboard.network.parser.FlickrImageResponseParser;
 import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
 
@@ -24,7 +24,7 @@ public class GetFlickrImagesREST {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
-                        FlickerSearchResponse searchResponse = gson.fromJson(response, FlickerSearchResponse.class);
+                        FlickrSearchResponse searchResponse = gson.fromJson(response, FlickrSearchResponse.class);
                         FlickrImageResponseParser flickrParser = new FlickrImageResponseParser(searchResponse);
                         listener.onPhotosReceived(flickrParser.getPhotosFromResponse());
                     }

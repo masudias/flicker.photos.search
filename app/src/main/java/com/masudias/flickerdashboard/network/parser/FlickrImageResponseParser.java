@@ -2,16 +2,16 @@ package com.masudias.flickerdashboard.network.parser;
 
 import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.domain.http.FlickerPhoto;
-import com.masudias.flickerdashboard.domain.http.response.FlickerSearchResponse;
+import com.masudias.flickerdashboard.domain.http.response.FlickrSearchResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlickrImageResponseParser implements PhotoHttpResponse {
 
-    FlickerSearchResponse response;
+    FlickrSearchResponse response;
 
-    public FlickrImageResponseParser(FlickerSearchResponse response) {
+    public FlickrImageResponseParser(FlickrSearchResponse response) {
         this.response = response;
     }
 
