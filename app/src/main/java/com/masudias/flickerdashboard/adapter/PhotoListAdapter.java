@@ -3,7 +3,6 @@ package com.masudias.flickerdashboard.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.database.DBConstants;
+import com.masudias.flickerdashboard.util.LoggerUtil;
 
 import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
 
@@ -131,7 +131,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             final long timestamp = cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_CREATED_AT));
             final String imageDimension = imageHeight + "x" + imageWidth;
 
-            Log.d("Cursor values", "id: " + timestamp + " and title: " + title);
+            LoggerUtil.debug(LoggerUtil.RECYCLER_VIEW_LOG, "id: " + timestamp + " and title: " + title);
 
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
