@@ -16,9 +16,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.database.DBConstants;
 
+import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
+
 public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Cursor cursor;
     private Context context;
+    private EndlessScroller loadMoreImagesListener;
 
     private static final int FOOTER_VIEW = 1;
 
@@ -34,9 +37,10 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public PhotoListAdapter(Context context, Cursor cursor) {
+    public PhotoListAdapter(Context context, Cursor cursor, EndlessScroller loadMoreImagesListener) {
         this.cursor = cursor;
         this.context = context;
+        this.loadMoreImagesListener = loadMoreImagesListener;
     }
 
     @SuppressWarnings("UnnecessaryLocalVariable")
@@ -57,6 +61,10 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if ((position >= getItemCount() - 1))
+            loadMoreImagesListener.onRequestForLoadingMoreImages(PHOTO_SOURCE_FLICKR);
+
         try {
             if (holder instanceof NormalViewHolder) {
                 NormalViewHolder vh = (NormalViewHolder) holder;
@@ -141,10 +149,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ownerNameTextView.setText(ownerName);
             imageDimensionsTextView.setText(imageDimension);
             imageSizeTextView.setText("getSize Here");
-        }
-
-        public void bindFooterView(int pos) {
-
         }
     }
 }

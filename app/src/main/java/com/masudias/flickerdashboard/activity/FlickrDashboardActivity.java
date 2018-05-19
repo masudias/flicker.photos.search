@@ -21,8 +21,7 @@ import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHO
 
 public class FlickrDashboardActivity extends AppCompatActivity implements PhotosResponseReceiver {
     private RelativeLayout parentLayout;
-    private boolean isLoading = false;
-    private int FLICKER_PAGE_NUMBER = 1;
+    public static boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +32,16 @@ public class FlickrDashboardActivity extends AppCompatActivity implements Photos
         launchPhotoListFragment();
 
         if (ApplicationConstants.DEBUG) TestUtil.insertDummyDataIntoPhotosTable(this);
-        else getImagesFromServer();
+        else getImagesFromServer(PHOTO_SOURCE_FLICKR);
     }
 
-    private void getImagesFromServer() {
+    public void getImagesFromServer(int imageSource) {
         if (isLoading) return;
 
-        // Get images from Flickr
+        isLoading = true;
         ImageProviderFactory
                 .getInstance(FlickrDashboardActivity.this, this)
-                .getImagesFromExternalSource(FLICKER_PAGE_NUMBER, "sports", PHOTO_SOURCE_FLICKR);
+                .getImagesFromExternalSource("sports", imageSource);
     }
 
     private void launchPhotoListFragment() {
@@ -61,6 +60,7 @@ public class FlickrDashboardActivity extends AppCompatActivity implements Photos
 
     @Override
     synchronized public void onPhotosReceived(List<Photo> photoList) {
+        isLoading = false;
         DataHelper.getInstance(FlickrDashboardActivity.this)
                 .insertPhotoListIntoDatabase(photoList);
     }

@@ -11,6 +11,8 @@ public class ImageProviderFactory {
     private static PhotosResponseReceiver listener;
     private static ImageProviderFactory instance = null;
 
+    public static int FLICKER_PAGE_NUMBER = 1;
+
     private ImageProviderFactory(Context context, PhotosResponseReceiver listener) {
         this.context = context;
         this.listener = listener;
@@ -23,10 +25,12 @@ public class ImageProviderFactory {
         return instance;
     }
 
-    public void getImagesFromExternalSource(int page, String topic, int imageSource) {
+    public void getImagesFromExternalSource(String topic, int imageSource) {
         if (imageSource == PhotoHttpResponse.PHOTO_SOURCE_FLICKR) {
             GetFlickrImagesREST
-                    .getFlickrImages(context, topic, page, listener);
+                    .getFlickrImages(context, topic, FLICKER_PAGE_NUMBER, listener);
+            // Bring the next page next time.
+            FLICKER_PAGE_NUMBER++;
         }
     }
 }
