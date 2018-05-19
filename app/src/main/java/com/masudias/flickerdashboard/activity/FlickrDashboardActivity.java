@@ -11,9 +11,7 @@ import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.fragments.PhotoListFragment;
 import com.masudias.flickerdashboard.network.ImageProviderFactory;
 import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
-import com.masudias.flickerdashboard.util.ApplicationConstants;
 import com.masudias.flickerdashboard.util.NetworkUtil;
-import com.masudias.flickerdashboard.util.TestUtil;
 
 import java.util.List;
 
@@ -31,8 +29,7 @@ public class FlickrDashboardActivity extends AppCompatActivity implements Photos
         showSnackBarWhenConnectionNotAvailable();
         launchPhotoListFragment();
 
-        if (ApplicationConstants.DEBUG) TestUtil.insertDummyDataIntoPhotosTable(this);
-        else getImagesFromServer(PHOTO_SOURCE_FLICKR);
+        getImagesFromServer(PHOTO_SOURCE_FLICKR);
     }
 
     public void getImagesFromServer(int imageSource) {

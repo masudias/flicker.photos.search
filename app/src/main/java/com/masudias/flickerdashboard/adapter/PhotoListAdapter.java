@@ -1,7 +1,6 @@
 package com.masudias.flickerdashboard.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.masudias.flickerdashboard.R;
-import com.masudias.flickerdashboard.database.DBConstants;
-import com.masudias.flickerdashboard.util.LoggerUtil;
+import com.masudias.flickerdashboard.domain.db.Photo;
+
+import java.util.List;
 
 import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
 
 public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Cursor cursor;
+    private List<Photo> photoList;
     private Context context;
     private EndlessScroller loadMoreImagesListener;
 
@@ -37,8 +37,8 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public PhotoListAdapter(Context context, Cursor cursor, EndlessScroller loadMoreImagesListener) {
-        this.cursor = cursor;
+    public PhotoListAdapter(Context context, List<Photo> photoList, EndlessScroller loadMoreImagesListener) {
+        this.photoList = photoList;
         this.context = context;
         this.loadMoreImagesListener = loadMoreImagesListener;
     }
@@ -79,13 +79,13 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        if (cursor == null || cursor.isClosed()) return 0;
-        else return cursor.getCount() + 1;
+        if (photoList == null || photoList.size() == 0) return 0;
+        else return photoList.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == cursor.getCount())
+        if (photoList.size() != 0 && position == photoList.size())
             return FOOTER_VIEW;
 
         return super.getItemViewType(position);
@@ -119,19 +119,13 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindView(int pos) {
-
-            cursor.moveToPosition(pos);
-
-            final String photoUrl = cursor.getString(cursor.getColumnIndex(DBConstants.KEY_PHOTO_URL));
-            final String ownerPhotoUrl = cursor.getString(cursor.getColumnIndex(DBConstants.KEY_OWNER_PHOTO_URL));
-            final String title = cursor.getString(cursor.getColumnIndex(DBConstants.KEY_TITLE));
-            final String ownerName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY_OWNER));
-            final int imageHeight = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_PHOTO_HEIGHT));
-            final int imageWidth = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_PHOTO_WIDTH));
-            final long timestamp = cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_CREATED_AT));
+            final String photoUrl = photoList.get(pos).photoUrl;
+            final String ownerPhotoUrl = photoList.get(pos).ownerPhotoUrl;
+            final String title = photoList.get(pos).title;
+            final String ownerName = photoList.get(pos).owner;
+            final int imageHeight = photoList.get(pos).height;
+            final int imageWidth = photoList.get(pos).width;
             final String imageDimension = imageHeight + "x" + imageWidth;
-
-            LoggerUtil.debug(LoggerUtil.RECYCLER_VIEW_LOG, "id: " + timestamp + " and title: " + title);
 
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

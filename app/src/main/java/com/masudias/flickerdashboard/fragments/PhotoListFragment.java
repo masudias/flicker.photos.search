@@ -19,6 +19,9 @@ import com.masudias.flickerdashboard.adapter.PhotoListAdapter;
 import com.masudias.flickerdashboard.database.DBConstants;
 import com.masudias.flickerdashboard.database.DataHelper;
 import com.masudias.flickerdashboard.database.SQLiteCursorLoader;
+import com.masudias.flickerdashboard.domain.db.Photo;
+
+import java.util.ArrayList;
 
 public class PhotoListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, EndlessScroller {
     private static final int PHOTO_LIST_QUERY_LOADER = 0;
@@ -27,6 +30,7 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
     private RecyclerView photoListRecyclerView;
     private PhotoListAdapter photoListAdapter;
     private LinearLayoutManager mLayoutManager;
+    private ArrayList<Photo> photoList = new ArrayList<Photo>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +48,10 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
         photoListRecyclerView = (RecyclerView) rootView.findViewById(R.id.photo_list);
         mLayoutManager = new LinearLayoutManager(getActivity());
         photoListRecyclerView.setLayoutManager(mLayoutManager);
+
+        // Set adapter
+        photoListAdapter = new PhotoListAdapter(getActivity(), photoList, this);
+        photoListRecyclerView.setAdapter(photoListAdapter);
     }
 
     @Override
@@ -71,16 +79,20 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data != null && data.getCount() > 0)
+        if (data != null && data.getCount() > 0) {
             emptyTextView.setVisibility(View.GONE);
-
-        photoListAdapter = new PhotoListAdapter(getActivity(), data, this);
-        photoListRecyclerView.setAdapter(photoListAdapter);
+            populatePhotoListFromCache(data);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    private void populatePhotoListFromCache(Cursor data) {
+        photoList = Photo.populatePhotoListFromCursor(data);
+        photoListAdapter.notifyDataSetChanged();
     }
 
     @Override

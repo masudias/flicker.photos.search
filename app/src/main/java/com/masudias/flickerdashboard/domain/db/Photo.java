@@ -1,5 +1,11 @@
 package com.masudias.flickerdashboard.domain.db;
 
+import android.database.Cursor;
+
+import com.masudias.flickerdashboard.database.DBConstants;
+
+import java.util.ArrayList;
+
 public class Photo {
     public String photoId;
     public String photoUrl;
@@ -102,5 +108,25 @@ public class Photo {
         public Photo build() {
             return new Photo(this);
         }
+    }
+
+    public static ArrayList<Photo> populatePhotoListFromCursor(Cursor photoCursor) {
+        photoCursor.moveToFirst();
+        ArrayList<Photo> photoList = new ArrayList<Photo>();
+
+        while (photoCursor.moveToNext()) {
+            photoList.add(new Photo.Builder()
+                    .photoId(photoCursor.getString(photoCursor.getColumnIndex(DBConstants.KEY_PHOTO_ID)))
+                    .photoUrl(photoCursor.getString(photoCursor.getColumnIndex(DBConstants.KEY_PHOTO_URL)))
+                    .owner(photoCursor.getString(photoCursor.getColumnIndex(DBConstants.KEY_OWNER)))
+                    .ownerPhotoUrl(photoCursor.getString(photoCursor.getColumnIndex(DBConstants.KEY_OWNER_PHOTO_URL)))
+                    .title(photoCursor.getString(photoCursor.getColumnIndex(DBConstants.KEY_TITLE)))
+                    .height(photoCursor.getInt(photoCursor.getColumnIndex(DBConstants.KEY_PHOTO_HEIGHT)))
+                    .width(photoCursor.getInt(photoCursor.getColumnIndex(DBConstants.KEY_PHOTO_WIDTH)))
+                    .photoSource(photoCursor.getInt(photoCursor.getColumnIndex(DBConstants.KEY_PHOTO_SOURCE)))
+                    .build());
+        }
+
+        return photoList;
     }
 }
