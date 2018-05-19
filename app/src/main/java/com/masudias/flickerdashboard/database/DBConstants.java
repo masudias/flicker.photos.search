@@ -10,7 +10,7 @@ public class DBConstants {
     public static final String DB_TABLE_PHOTO = "photo";
     public static final Uri DB_TABLE_PHOTO_URI = Uri
             .parse("sqlite://" + ApplicationConstants.ApplicationPackage + "/" + DB_TABLE_PHOTO);
-    public static final int MAX_ROW_COUNT_DB_TABLE_PHOTO = 10001;
+    public static final int MAX_ROW_COUNT_DB_TABLE_PHOTO = 101;
 
     // Photo table columns
     public static final String KEY_PHOTO_ID = "photo_id";

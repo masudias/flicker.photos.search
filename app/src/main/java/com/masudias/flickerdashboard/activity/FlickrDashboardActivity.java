@@ -9,7 +9,7 @@ import com.masudias.flickerdashboard.R;
 import com.masudias.flickerdashboard.database.DataHelper;
 import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.fragments.PhotoListFragment;
-import com.masudias.flickerdashboard.network.GetFlickrImagesREST;
+import com.masudias.flickerdashboard.network.ImageProviderFactory;
 import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
 import com.masudias.flickerdashboard.util.ApplicationConstants;
 import com.masudias.flickerdashboard.util.NetworkUtil;
@@ -17,8 +17,12 @@ import com.masudias.flickerdashboard.util.TestUtil;
 
 import java.util.List;
 
+import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
+
 public class FlickrDashboardActivity extends AppCompatActivity implements PhotosResponseReceiver {
     private RelativeLayout parentLayout;
+    private boolean isLoading = false;
+    private int FLICKER_PAGE_NUMBER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +32,17 @@ public class FlickrDashboardActivity extends AppCompatActivity implements Photos
         showSnackBarWhenConnectionNotAvailable();
         launchPhotoListFragment();
 
-        if (ApplicationConstants.DEBUG)
-            TestUtil.insertDummyDataIntoPhotosTable(this);
-        else GetFlickrImagesREST
-                .getFlickrImages(FlickrDashboardActivity.this, "sports", 1, this);
+        if (ApplicationConstants.DEBUG) TestUtil.insertDummyDataIntoPhotosTable(this);
+        else getImagesFromServer();
+    }
+
+    private void getImagesFromServer() {
+        if (isLoading) return;
+
+        // Get images from Flickr
+        ImageProviderFactory
+                .getInstance(FlickrDashboardActivity.this, this)
+                .getImagesFromExternalSource(FLICKER_PAGE_NUMBER, "sports", PHOTO_SOURCE_FLICKR);
     }
 
     private void launchPhotoListFragment() {
