@@ -37,7 +37,7 @@ public class PhotoListFragment extends Fragment implements
     private RecyclerView photoListRecyclerView;
     private PhotoListAdapter photoListAdapter;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<Photo> photoList = new ArrayList<Photo>();
+    private ArrayList<Photo> photoListFromServer = new ArrayList<Photo>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,7 +62,7 @@ public class PhotoListFragment extends Fragment implements
         photoListRecyclerView.setLayoutManager(mLayoutManager);
 
         // Set adapter
-        photoListAdapter = new PhotoListAdapter(getActivity(), photoList, this);
+        photoListAdapter = new PhotoListAdapter(getActivity(), photoListFromServer, this);
         photoListRecyclerView.setAdapter(photoListAdapter);
     }
 
@@ -105,8 +105,8 @@ public class PhotoListFragment extends Fragment implements
     }
 
     private void populatePhotoListFromCache(Cursor data) {
-        photoList = Photo.populatePhotoListFromCursor(data);
-        photoListAdapter.setPhotoList(photoList);
+        ArrayList<Photo> photoListFromCache = Photo.populatePhotoListFromCursor(data);
+        photoListAdapter.setPhotoList(photoListFromCache);
         photoListAdapter.notifyDataSetChanged();
     }
 
@@ -130,7 +130,8 @@ public class PhotoListFragment extends Fragment implements
         if (photoList.size() > 0)
             emptyTextView.setVisibility(View.GONE);
 
-        this.photoList.addAll(photoList);
+        this.photoListFromServer.addAll(photoList);
+        photoListAdapter.setPhotoList(photoListFromServer);
         photoListAdapter.notifyDataSetChanged();
     }
 }

@@ -12,6 +12,7 @@ public class NetworkConstants {
         uri.appendQueryParameter("method", FLICKR_SEARCH_METHOD);
         uri.appendQueryParameter("api_key", FLICKR_API_KEY);
         uri.appendQueryParameter("page", page + "");
+        uri.appendQueryParameter("per_page", 5 + "");
         uri.appendQueryParameter("format", "json");
         uri.appendQueryParameter("nojsoncallback", "1");
         uri.appendQueryParameter("tags", tag);

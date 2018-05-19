@@ -95,8 +95,7 @@ public class DataHelper {
         db.beginTransaction();
 
         try {
-            String queryString = "DELETE FROM " + DBConstants.DB_TABLE_PHOTO;
-            db.rawQuery(queryString, null);
+            db.delete(DBConstants.DB_TABLE_PHOTO, null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
