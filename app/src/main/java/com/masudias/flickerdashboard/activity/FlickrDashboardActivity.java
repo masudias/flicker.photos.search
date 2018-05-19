@@ -17,9 +17,8 @@ import java.util.List;
 
 import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
 
-public class FlickrDashboardActivity extends AppCompatActivity implements PhotosResponseReceiver {
+public class FlickrDashboardActivity extends AppCompatActivity {
     private RelativeLayout parentLayout;
-    public static boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +27,6 @@ public class FlickrDashboardActivity extends AppCompatActivity implements Photos
         setupViewElements();
         showSnackBarWhenConnectionNotAvailable();
         launchPhotoListFragment();
-
-        getImagesFromServer(PHOTO_SOURCE_FLICKR);
-    }
-
-    public void getImagesFromServer(int imageSource) {
-        if (isLoading) return;
-
-        isLoading = true;
-        ImageProviderFactory
-                .getInstance(FlickrDashboardActivity.this, this)
-                .getImagesFromExternalSource("sports", imageSource);
     }
 
     private void launchPhotoListFragment() {
@@ -53,12 +41,5 @@ public class FlickrDashboardActivity extends AppCompatActivity implements Photos
 
     private void setupViewElements() {
         parentLayout = (RelativeLayout) findViewById(R.id.fragment_container);
-    }
-
-    @Override
-    synchronized public void onPhotosReceived(List<Photo> photoList) {
-        isLoading = false;
-        DataHelper.getInstance(FlickrDashboardActivity.this)
-                .insertPhotoListIntoDatabase(photoList);
     }
 }

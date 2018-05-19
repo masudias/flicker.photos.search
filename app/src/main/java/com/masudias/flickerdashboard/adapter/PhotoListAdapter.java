@@ -25,6 +25,10 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private static final int FOOTER_VIEW = 1;
 
+    public void setPhotoList(List<Photo> photoList) {
+        this.photoList = photoList;
+    }
+
     public class FooterViewHolder extends ViewHolder {
         public FooterViewHolder(View itemView) {
             super(itemView);

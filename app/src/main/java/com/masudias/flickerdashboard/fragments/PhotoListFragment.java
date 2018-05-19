@@ -13,18 +13,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.masudias.flickerdashboard.R;
-import com.masudias.flickerdashboard.activity.FlickrDashboardActivity;
 import com.masudias.flickerdashboard.adapter.EndlessScroller;
 import com.masudias.flickerdashboard.adapter.PhotoListAdapter;
-import com.masudias.flickerdashboard.database.DBConstants;
 import com.masudias.flickerdashboard.database.DataHelper;
 import com.masudias.flickerdashboard.database.SQLiteCursorLoader;
 import com.masudias.flickerdashboard.domain.db.Photo;
+import com.masudias.flickerdashboard.network.ImageProviderFactory;
+import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
+import com.masudias.flickerdashboard.util.NetworkUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PhotoListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, EndlessScroller {
+import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
+
+public class PhotoListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, PhotosResponseReceiver, EndlessScroller {
     private static final int PHOTO_LIST_QUERY_LOADER = 0;
+    private boolean isLoading = false;
+    private boolean loadedOnceFromCache = false;
 
     private TextView emptyTextView;
     private RecyclerView photoListRecyclerView;
@@ -38,9 +44,14 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
         View rootView = inflater.inflate(R.layout.fragment_photo_list, container, false);
         setupViewElements(rootView);
 
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getActivity().getSupportLoaderManager()
                 .initLoader(PHOTO_LIST_QUERY_LOADER, null, this).forceLoad();
-        return rootView;
     }
 
     private void setupViewElements(View rootView) {
@@ -66,12 +77,7 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
             @Override
             public Cursor loadInBackground() {
                 DataHelper dataHelper = DataHelper.getInstance(getActivity());
-                Cursor cursor;
-                cursor = dataHelper.getAllPhotosStored();
-
-                if (cursor != null)
-                    this.registerContentObserver(cursor, DBConstants.DB_TABLE_PHOTO_URI);
-
+                Cursor cursor = dataHelper.getAllPhotosStored();
                 return cursor;
             }
         };
@@ -79,10 +85,17 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (loadedOnceFromCache) return;
+        else loadedOnceFromCache = true;
+
         if (data != null && data.getCount() > 0) {
             emptyTextView.setVisibility(View.GONE);
             populatePhotoListFromCache(data);
         }
+
+        // Load the images first time from cursor if available.
+        // Then launch the background operation to fetch latest photos
+        getImagesFromServer(PHOTO_SOURCE_FLICKR);
     }
 
     @Override
@@ -92,11 +105,31 @@ public class PhotoListFragment extends Fragment implements LoaderManager.LoaderC
 
     private void populatePhotoListFromCache(Cursor data) {
         photoList = Photo.populatePhotoListFromCursor(data);
+        photoListAdapter.setPhotoList(photoList);
         photoListAdapter.notifyDataSetChanged();
+    }
+
+    public void getImagesFromServer(int imageSource) {
+        if (isLoading || !NetworkUtil.isConnectionAvailable(getActivity())) return;
+
+        isLoading = true;
+        ImageProviderFactory
+                .getInstance(getActivity(), this)
+                .getImagesFromExternalSource("sports", imageSource);
     }
 
     @Override
     public void onRequestForLoadingMoreImages(int imageSource) {
-        ((FlickrDashboardActivity) getActivity()).getImagesFromServer(imageSource);
+        getImagesFromServer(imageSource);
+    }
+
+    @Override
+    synchronized public void onPhotosReceived(List<Photo> photoList) {
+        isLoading = false;
+        if (photoList.size() > 0)
+            emptyTextView.setVisibility(View.GONE);
+
+        this.photoList.addAll(photoList);
+        photoListAdapter.notifyDataSetChanged();
     }
 }

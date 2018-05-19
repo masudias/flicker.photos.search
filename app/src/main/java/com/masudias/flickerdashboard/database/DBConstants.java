@@ -8,8 +8,6 @@ public class DBConstants {
     public static final String DB_PATH = "/data/data/" + ApplicationConstants.ApplicationPackage + "/databases/";
     public static final String DB_FLICKR = "flickr";
     public static final String DB_TABLE_PHOTO = "photo";
-    public static final Uri DB_TABLE_PHOTO_URI = Uri
-            .parse("sqlite://" + ApplicationConstants.ApplicationPackage + "/" + DB_TABLE_PHOTO);
     public static final int MAX_ROW_COUNT_DB_TABLE_PHOTO = 100001;
 
     // Photo table columns

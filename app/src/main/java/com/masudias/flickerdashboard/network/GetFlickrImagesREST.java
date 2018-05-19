@@ -9,10 +9,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.masudias.flickerdashboard.database.DataHelper;
+import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.domain.http.response.FlickrSearchResponse;
+import com.masudias.flickerdashboard.fragments.PhotoListFragment;
 import com.masudias.flickerdashboard.network.parser.FlickrImageResponseParser;
 import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
 import com.masudias.flickerdashboard.util.NetworkUtil;
+
+import java.util.List;
 
 public class GetFlickrImagesREST {
 
@@ -29,7 +34,11 @@ public class GetFlickrImagesREST {
                         Gson gson = new Gson();
                         FlickrSearchResponse searchResponse = gson.fromJson(response, FlickrSearchResponse.class);
                         FlickrImageResponseParser flickrParser = new FlickrImageResponseParser(searchResponse);
-                        listener.onPhotosReceived(flickrParser.getPhotosFromResponse());
+
+                        List<Photo> photoList = flickrParser.getPhotosFromResponse();
+                        DataHelper.getInstance(context).deleteAllPhotos();
+                        DataHelper.getInstance(context).insertPhotoListIntoDatabase(photoList);
+                        listener.onPhotosReceived(photoList);
                     }
                 }, new Response.ErrorListener() {
             @Override
