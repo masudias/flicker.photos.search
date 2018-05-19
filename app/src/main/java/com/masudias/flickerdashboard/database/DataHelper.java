@@ -136,15 +136,18 @@ public class DataHelper {
 
         try {
             Cursor cursor = null;
-            String getCountQueryString = "SELECT "
+            String getThresholdTimeQuery = "SELECT "
                     + DBConstants.KEY_CREATED_AT + " FROM "
                     + DBConstants.DB_TABLE_PHOTO
                     + " ORDER BY " + DBConstants.KEY_CREATED_AT + " DESC"
                     + " LIMIT 1 OFFSET " + DBConstants.MAX_ROW_COUNT_DB_TABLE_PHOTO;
 
-            cursor = db.rawQuery(getCountQueryString, null);
+            cursor = db.rawQuery(getThresholdTimeQuery, null);
             cursor.moveToFirst();
             long oldImageThresholdTime = cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_CREATED_AT));
+
+            // Add a 5 second window for images who were saved in the same time as the threshold.
+            oldImageThresholdTime = oldImageThresholdTime + 5000;
 
             String deleteQueryString = "DELETE FROM "
                     + DBConstants.DB_TABLE_PHOTO
