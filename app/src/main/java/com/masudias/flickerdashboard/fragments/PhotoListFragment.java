@@ -127,6 +127,8 @@ public class PhotoListFragment extends Fragment implements
     @Override
     synchronized public void onPhotosReceived(List<Photo> photoList) {
         isLoading = false;
+        if (photoList == null) return;
+
         if (photoList.size() > 0)
             emptyTextView.setVisibility(View.GONE);
 

@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 import com.masudias.flickerdashboard.database.DataHelper;
 import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.domain.http.response.FlickrSearchResponse;
-import com.masudias.flickerdashboard.fragments.PhotoListFragment;
 import com.masudias.flickerdashboard.network.parser.FlickrImageResponseParser;
 import com.masudias.flickerdashboard.network.receiver.PhotosResponseReceiver;
 import com.masudias.flickerdashboard.util.NetworkUtil;
@@ -37,7 +36,7 @@ public class GetFlickrImagesREST {
 
                         List<Photo> photoList = flickrParser.getPhotosFromResponse();
                         DataHelper.getInstance(context).deleteAllPhotos();
-                        DataHelper.getInstance(context).insertPhotoListIntoDatabase(photoList);
+                        photoList = DataHelper.getInstance(context).insertPhotoListIntoDatabase(photoList);
                         listener.onPhotosReceived(photoList);
                     }
                 }, new Response.ErrorListener() {

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.masudias.flickerdashboard.domain.db.Photo;
 import com.masudias.flickerdashboard.util.LoggerUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataHelper {
@@ -38,14 +39,17 @@ public class DataHelper {
         instance = null;
     }
 
-    public void insertPhotoListIntoDatabase(List<Photo> photoList) {
+    public List<Photo> insertPhotoListIntoDatabase(List<Photo> photoList) {
+
         if (photoList != null && photoList.size() > 0) {
+            ArrayList<Photo> validPhotoList = new ArrayList<Photo>();
             SQLiteDatabase db = dOpenHelper.getWritableDatabase();
             db.beginTransaction();
 
             try {
                 for (Photo photo : photoList) {
                     if (!photo.isValid()) continue;
+                    else validPhotoList.add(photo);
 
                     ContentValues values = new ContentValues();
                     values.put(DBConstants.KEY_PHOTO_ID, photo.photoId);
@@ -67,7 +71,10 @@ public class DataHelper {
             db.endTransaction();
 
             LoggerUtil.debug(LoggerUtil.DB_LOG, "Inserted photos into the database");
+            return validPhotoList;
         }
+
+        return null;
     }
 
     public Cursor getAllPhotosStored() {
