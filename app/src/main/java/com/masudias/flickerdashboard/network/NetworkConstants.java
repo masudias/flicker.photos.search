@@ -6,7 +6,7 @@ public class NetworkConstants {
     private static final String FLICKR_API_KEY = "949e98778755d1982f537d56236bbb42";
     private static final String FLICKR_BASE_URL = "https://api.flickr.com/services/rest/";
     private static final String FLICKR_SEARCH_METHOD = "flickr.photos.search";
-    private static final String FLICKR_PER_PAGE_DEFAULT = "10";
+    private static final String FLICKR_PER_PAGE_DEFAULT = "20";
 
     public static String getUrlForFlickrImage(String tag, int page) {
         Uri.Builder uri = Uri.parse(FLICKR_BASE_URL).buildUpon();

@@ -116,7 +116,7 @@ public class PhotoListFragment extends Fragment implements
         isLoading = true;
         ImageProviderFactory
                 .getInstance(getActivity(), this)
-                .getImagesFromExternalSource("sports", imageSource);
+                .getImagesFromExternalSource("public", imageSource);
     }
 
     @Override
