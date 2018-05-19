@@ -8,7 +8,6 @@ public class DBConstants {
     public static final String DB_PATH = "/data/data/" + ApplicationConstants.ApplicationPackage + "/databases/";
     public static final String DB_FLICKR = "flickr";
     public static final String DB_TABLE_PHOTO = "photo";
-    public static final int MAX_ROW_COUNT_DB_TABLE_PHOTO = 100001;
 
     // Photo table columns
     public static final String KEY_PHOTO_ID = "photo_id";
