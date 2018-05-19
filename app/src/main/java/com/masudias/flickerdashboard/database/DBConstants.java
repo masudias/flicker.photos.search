@@ -10,9 +10,9 @@ public class DBConstants {
     public static final String DB_TABLE_PHOTO = "photo";
     public static final Uri DB_TABLE_PHOTO_URI = Uri
             .parse("sqlite://" + ApplicationConstants.ApplicationPackage + "/" + DB_TABLE_PHOTO);
+    public static final int MAX_ROW_COUNT_DB_TABLE_PHOTO = 10001;
 
     // Photo table columns
-    public static final String KEY_ID = "id";
     public static final String KEY_PHOTO_ID = "photo_id";
     public static final String KEY_PHOTO_URL = "photo_url";
     public static final String KEY_OWNER = "owner";
@@ -21,4 +21,5 @@ public class DBConstants {
     public static final String KEY_PHOTO_HEIGHT = "photo_height";
     public static final String KEY_PHOTO_WIDTH = "photo_width";
     public static final String KEY_PHOTO_SOURCE = "source";
+    public static final String KEY_CREATED_AT = "created_at";
 }

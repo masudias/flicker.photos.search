@@ -3,6 +3,7 @@ package com.masudias.flickerdashboard.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -57,6 +58,7 @@ public class DataHelper {
                 values.put(DBConstants.KEY_PHOTO_HEIGHT, photo.height);
                 values.put(DBConstants.KEY_PHOTO_WIDTH, photo.width);
                 values.put(DBConstants.KEY_PHOTO_SOURCE, photo.photoSource);
+                values.put(DBConstants.KEY_CREATED_AT, System.currentTimeMillis());
                 rowIdOfSavedPhoto = db.insertWithOnConflict(DBConstants.DB_TABLE_PHOTO, null, values, SQLiteDatabase.CONFLICT_REPLACE);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -64,6 +66,7 @@ public class DataHelper {
 
             db.setTransactionSuccessful();
             db.endTransaction();
+            deleteOldPhotosToLimitThePhotoStored();
 
             context.getContentResolver().notifyChange(DBConstants.DB_TABLE_PHOTO_URI, null);
 
@@ -91,6 +94,7 @@ public class DataHelper {
                     values.put(DBConstants.KEY_PHOTO_HEIGHT, photo.height);
                     values.put(DBConstants.KEY_PHOTO_WIDTH, photo.width);
                     values.put(DBConstants.KEY_PHOTO_SOURCE, photo.photoSource);
+                    values.put(DBConstants.KEY_CREATED_AT, System.currentTimeMillis());
                     db.insertWithOnConflict(DBConstants.DB_TABLE_PHOTO, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 }
             } catch (Exception e) {
@@ -99,6 +103,7 @@ public class DataHelper {
 
             db.setTransactionSuccessful();
             db.endTransaction();
+            deleteOldPhotosToLimitThePhotoStored();
 
             context.getContentResolver().notifyChange(DBConstants.DB_TABLE_PHOTO_URI, null);
 
@@ -119,6 +124,47 @@ public class DataHelper {
         }
 
         return cursor;
+    }
+
+    public void deleteOldPhotosToLimitThePhotoStored() {
+
+        long photosCount = getPhotosCountInPhotoTable();
+        if (photosCount < DBConstants.MAX_ROW_COUNT_DB_TABLE_PHOTO) return;
+
+        SQLiteDatabase db = dOpenHelper.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            Cursor cursor = null;
+            String getCountQueryString = "SELECT "
+                    + DBConstants.KEY_CREATED_AT + " FROM "
+                    + DBConstants.DB_TABLE_PHOTO
+                    + " ORDER BY " + DBConstants.KEY_CREATED_AT + " DESC"
+                    + " LIMIT 1 OFFSET " + DBConstants.MAX_ROW_COUNT_DB_TABLE_PHOTO;
+
+            cursor = db.rawQuery(getCountQueryString, null);
+            cursor.moveToFirst();
+            long oldImageThresholdTime = cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_CREATED_AT));
+
+            String deleteQueryString = "DELETE FROM "
+                    + DBConstants.DB_TABLE_PHOTO
+                    + " WHERE " + DBConstants.KEY_CREATED_AT
+                    + " <= " + oldImageThresholdTime;
+
+            db.rawQuery(deleteQueryString, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.setTransactionSuccessful();
+        db.endTransaction();
+
+        Log.d("DELETE", "Limit the row ids.");
+    }
+
+    public long getPhotosCountInPhotoTable() {
+        SQLiteDatabase db = dOpenHelper.getReadableDatabase();
+        return DatabaseUtils.queryNumEntries(db, DBConstants.DB_TABLE_PHOTO);
     }
 
     public void deleteAllPhotos() {

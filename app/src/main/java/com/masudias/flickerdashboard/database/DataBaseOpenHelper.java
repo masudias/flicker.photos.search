@@ -23,7 +23,6 @@ class DataBaseOpenHelper extends SQLiteOpenHelper {
     private void createPhotoTable(SQLiteDatabase db) {
         db.execSQL("create table if not exists "
                 + DBConstants.DB_TABLE_PHOTO + "("
-                + DBConstants.KEY_ID + " integer primary key autoincrement, "
                 + DBConstants.KEY_PHOTO_ID + " text not null, "
                 + DBConstants.KEY_PHOTO_URL + " text not null, "
                 + DBConstants.KEY_OWNER + " text not null, "
@@ -32,6 +31,7 @@ class DataBaseOpenHelper extends SQLiteOpenHelper {
                 + DBConstants.KEY_PHOTO_HEIGHT + " integer not null, "
                 + DBConstants.KEY_PHOTO_WIDTH + " integer not null, "
                 + DBConstants.KEY_PHOTO_SOURCE + " integer not null, "
+                + DBConstants.KEY_CREATED_AT + " long not null, "
                 + "UNIQUE("
                 + DBConstants.KEY_PHOTO_ID + ","
                 + DBConstants.KEY_PHOTO_SOURCE + ") ON CONFLICT REPLACE)");
