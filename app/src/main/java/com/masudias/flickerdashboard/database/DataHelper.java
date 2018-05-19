@@ -147,6 +147,7 @@ public class DataHelper {
             long oldImageThresholdTime = cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_CREATED_AT));
 
             // Add a 5 second window for images who were saved in the same time as the threshold.
+            // This is to avoid the chances of removing all the images at once.
             oldImageThresholdTime = oldImageThresholdTime + 5000;
 
             String deleteQueryString = "DELETE FROM "
