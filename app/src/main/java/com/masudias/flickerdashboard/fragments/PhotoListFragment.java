@@ -27,7 +27,8 @@ import java.util.List;
 
 import static com.masudias.flickerdashboard.network.parser.PhotoHttpResponse.PHOTO_SOURCE_FLICKR;
 
-public class PhotoListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, PhotosResponseReceiver, EndlessScroller {
+public class PhotoListFragment extends Fragment implements
+        LoaderManager.LoaderCallbacks<Cursor>, PhotosResponseReceiver, EndlessScroller {
     private static final int PHOTO_LIST_QUERY_LOADER = 0;
     private boolean isLoading = false;
     private boolean loadedOnceFromCache = false;
