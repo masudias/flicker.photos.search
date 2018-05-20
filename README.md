@@ -54,3 +54,4 @@ The entry point of the application is `FlickrDashboardActivity` which simply lau
 
 The `PhotoListFragment` does the heavy work. It has a simple `RecyclerView` in it, which displays the data fetched from server. However, as I have implemented a caching mechanism I had to manage the overall data display mechanism a bit differently. I am providing a flowchart here to describe the overall process flow.
 
+![alt text](https://github.com/masudias/flickr.photos.search/blob/master/Screen%20Shot%202018-05-20%20at%207.37.43%20PM.png "Flowchart")
