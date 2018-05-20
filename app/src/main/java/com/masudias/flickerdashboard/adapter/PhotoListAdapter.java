@@ -100,26 +100,17 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         // Photo items
         private final ImageView photoImageView;
-        private final ImageView ownerImageView;
         private final TextView imageTitleTextView;
         private final TextView ownerNameTextView;
         private final TextView imageDimensionsTextView;
-        private final TextView imageSizeTextView;
-
-        // Footer view items
-        private final TextView footerTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.itemView = itemView;
             photoImageView = (ImageView) itemView.findViewById(R.id.photo);
-            ownerImageView = (ImageView) itemView.findViewById(R.id.owner_photo);
             imageTitleTextView = (TextView) itemView.findViewById(R.id.title);
             ownerNameTextView = (TextView) itemView.findViewById(R.id.name);
             imageDimensionsTextView = (TextView) itemView.findViewById(R.id.photo_dimension);
-            imageSizeTextView = (TextView) itemView.findViewById(R.id.photo_size);
-
-            footerTextView = (TextView) itemView.findViewById(R.id.footer_text_view);
         }
 
         public void bindView(int pos) {
@@ -138,7 +129,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             try {
                 Glide.with(context).load((photoUrl)).apply(requestOptions).into(photoImageView);
-                Glide.with(context).load(ownerPhotoUrl).apply(requestOptions).into(ownerImageView);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -146,7 +136,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             imageTitleTextView.setText(title);
             ownerNameTextView.setText(ownerName);
             imageDimensionsTextView.setText(imageDimension);
-            imageSizeTextView.setText("getSize Here");
         }
     }
 }

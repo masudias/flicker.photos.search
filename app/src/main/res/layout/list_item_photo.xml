@@ -13,73 +13,42 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_image_loader_placeholder" />
 
-    <RelativeLayout
-        android:id="@+id/info_layout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/photo"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:gravity="center_vertical">
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/margin_card"
+        android:layout_toLeftOf="@+id/photo_dimension"
+        android:fontFamily="sans-serif"
+        android:text="Image Title"
+        android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/owner_photo"
-            android:layout_width="@dimen/profile_pic_size"
-            android:layout_height="@dimen/profile_pic_size"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_launcher_background" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="@dimen/margin_card"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:fontFamily="sans-serif"
+        android:text="Owner Name"
+        android:textSize="12sp" />
 
-        <LinearLayout
-            android:id="@+id/owner_info_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/photo_info_layout"
-            android:layout_toRightOf="@+id/owner_photo"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/photo_dimension"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/photo"
+        android:layout_marginLeft="@dimen/margin_card"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/margin_card"
+        android:fontFamily="sans-serif"
+        android:text="800 * 700"
+        android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_toRightOf="@+id/owner_photo"
-                android:fontFamily="sans-serif"
-                android:text="Ronaldo at his best"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_toRightOf="@+id/owner_photo"
-                android:fontFamily="sans-serif"
-                android:text="Mario D'Costa" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/photo_info_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:gravity="right"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/photo_dimension"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="800 * 700" />
-
-            <TextView
-                android:id="@+id/photo_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="36567 Bytes" />
-        </LinearLayout>
-    </RelativeLayout>
 </RelativeLayout>
