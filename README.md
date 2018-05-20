@@ -68,3 +68,7 @@ Scalibility was a major concern throughout the application development process a
 * Caching the images in a generalized format so that images from any source can be cached. However, the I took only the attributes which are mandatory for displaying in our application and most likely to have in the response body when I am pulling images for different soources. 
 
 I am trying to describe them both in the following sub-sections. 
+
+### Getting images from different source 
+I have created a factory class named `ImageProviderFactory` which will be used to get the appropriate image provider based on the source type defined in `PhotoHttpResponse` class. The `Fragment` displaying the images will call the function defined in the `ImageProviderFactory` with the source specified and the `getImagesFromExternalSource` function will choose to call the API which is defined there based on that source type. I have preapred a graphical representation of the overall architecture of fetching data from different servers. 
+
