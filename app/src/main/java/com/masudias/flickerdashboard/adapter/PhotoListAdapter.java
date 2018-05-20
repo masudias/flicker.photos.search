@@ -115,7 +115,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public void bindView(int pos) {
             final String photoUrl = photoList.get(pos).photoUrl;
-            final String ownerPhotoUrl = photoList.get(pos).ownerPhotoUrl;
             final String title = photoList.get(pos).title;
             final String ownerName = photoList.get(pos).owner;
             final int imageHeight = photoList.get(pos).height;
@@ -134,7 +133,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             imageTitleTextView.setText(title);
-            ownerNameTextView.setText(ownerName);
+            ownerNameTextView.setText("By " + ownerName);
             imageDimensionsTextView.setText(imageDimension);
         }
     }
