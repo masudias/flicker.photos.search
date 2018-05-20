@@ -44,6 +44,13 @@ I had another concern regarding the scalibility of the application. There was a 
 
 I have designed the whole application keeping this concern in mind and adopted factory pattern in several cases to provide scalibility to the overall architecture. I will be discussing this in details in later sections. 
 
-<!--## Improvement scope and trade-offs of technical choices-->
+## Improvement scope and trade-offs of technical choices
+There are several improvement scope of the application that I have developed. I am listing them below. 
+* The application is designed to support the portrait mode only. It can be done for landscape view as well which will provide a better experience to the user when using the application from a tablet. In that case, we need a separate layout for the landscape mode and might have to load different fragment to position the UI elements differently. 
+* I could have improved the caching mechanism if I could have some more time. While caching a large number of images we need to deal with the syncing problem as well. Right now, I am deleting the exisiting data and repopulating the cache again each time I fetch new data. This can be improved through digging into the photo ids which are provided from Flickr APIs. The photo ids are unique but does not maintain a incremental or decremental sequence. However, I think there should be a way to sync the data more efficiently. 
 
+## Development documentation 
+The entry point of the application is `FlickrDashboardActivity` which simply launches a fragment named `PhotoListFragment`. The `PhotoListFragment` handles querying the data from server and managing the overall caching mechanism. I choose to have a `Fragment` here to keep the overall implementation more scalable. 
+
+The `PhotoListFragment` does the heavy work. It has a simple `RecyclerView` in it, which displays the data fetched from server. However, as I have implemented a caching mechanism I had to manage the overall data display mechanism a bit differently. I am providing a flowchart here to describe the overall process flow.
 
