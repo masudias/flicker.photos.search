@@ -39,7 +39,7 @@ public class DataHelper {
         instance = null;
     }
 
-    public List<Photo> insertPhotoListIntoDatabase(List<Photo> photoList) {
+    synchronized public List<Photo> insertPhotoListIntoDatabase(List<Photo> photoList) {
 
         if (photoList != null && photoList.size() > 0) {
             ArrayList<Photo> validPhotoList = new ArrayList<Photo>();
@@ -97,7 +97,7 @@ public class DataHelper {
         return DatabaseUtils.queryNumEntries(db, DBConstants.DB_TABLE_PHOTO);
     }
 
-    public void deleteAllPhotos() {
+    synchronized public void deleteAllPhotos() {
         SQLiteDatabase db = dOpenHelper.getWritableDatabase();
         db.beginTransaction();
 
