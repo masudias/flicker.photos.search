@@ -72,3 +72,4 @@ I am trying to describe them both in the following sub-sections.
 ### Getting images from different source 
 I have created a factory class named `ImageProviderFactory` which will be used to get the appropriate image provider based on the source type defined in `PhotoHttpResponse` class. The `Fragment` displaying the images will call the function defined in the `ImageProviderFactory` with the source specified and the `getImagesFromExternalSource` function will choose to call the API which is defined there based on that source type. I have preapred a graphical representation of the overall architecture of fetching data from different servers. 
 
+![alt text](https://github.com/masudias/flickr.photos.search/blob/master/get-image-from-different-server.png "Get images from different servers")
