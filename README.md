@@ -69,9 +69,12 @@ Scalibility was a major concern throughout the application development process a
 
 I am trying to describe them both in the following sub-sections. 
 
-### Getting images from different source 
+### Getting images from different sources
 I have created a factory class named `ImageProviderFactory` which will be used to get the appropriate image provider based on the source type defined in `PhotoHttpResponse` class. The `Fragment` displaying the images will call the function defined in the `ImageProviderFactory` with the source specified and the `getImagesFromExternalSource` function will choose to call the API which is defined there based on that source type. I have preapred a graphical representation of the overall architecture of fetching data from different servers. 
 
 ![alt text](https://github.com/masudias/flickr.photos.search/blob/master/get-images-from-different-server.png "Get images from different servers")
 
 I have prepared an interface as a listener for receiving response from the server API call. The listen takes a list of `Photo` as its parameter. That ensures, different list of images response from different sources should be converted to `Photo` type before passing it to the `PhotoListFragment`. 
+
+### Caching images from different sources
+As per the graphical representation above, I am saving the response got from each different servers in a generalized format to be served to the photo list when the application is offline. I have come up with a `Photo.Builder` to enforce building the `Photo` object with the parameters that require. There is an interface as well named `PhotoMaker` which is implemented by the `FlickrPhoto` class, keeping in mind that each source can have a differnt image url building mechanism. As a result we need to have some functions overriden by each photo domain class. For example, `FlickrPhoto` class has to overridde the `getPhotoUrl` and `getOwnerPhotoUrl` functions to provide the photo url that has to be saved in the database or to be provided to the `RecyclerView` to display the images.
