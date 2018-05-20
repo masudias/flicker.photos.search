@@ -80,3 +80,8 @@ I have prepared an interface as a listener for receiving response from the serve
 
 ### Caching images from different sources
 As per the graphical representation above, I am saving the response got from each different servers in a generalized format to be served to the photo list when the application is offline. I have come up with a `Photo.Builder` to enforce building the `Photo` object with the parameters that require. There is an interface as well named `PhotoMaker` which is implemented by the `FlickrPhoto` class, keeping in mind that each source can have a differnt image url building mechanism. As a result we need to have some functions overriden by each photo domain class. For example, `FlickrPhoto` class has to overridde the `getPhotoUrl` and `getOwnerPhotoUrl` functions to provide the photo url that has to be saved in the database or to be provided to the `RecyclerView` to display the images.
+
+## Conclusion
+> This challenge is centered around gauging your knowledge of the Android application flow.
+
+I have tried to follow the best practices based on my knowledge on Android application development process. I have not followed any particular framework. However, I am keen learn and develop following one. Please note that, the images might take some time to load as I am loading the images with original size here. Thanks.
