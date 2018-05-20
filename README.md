@@ -73,3 +73,5 @@ I am trying to describe them both in the following sub-sections.
 I have created a factory class named `ImageProviderFactory` which will be used to get the appropriate image provider based on the source type defined in `PhotoHttpResponse` class. The `Fragment` displaying the images will call the function defined in the `ImageProviderFactory` with the source specified and the `getImagesFromExternalSource` function will choose to call the API which is defined there based on that source type. I have preapred a graphical representation of the overall architecture of fetching data from different servers. 
 
 ![alt text](https://github.com/masudias/flickr.photos.search/blob/master/get-image-from-different-server.png "Get images from different servers")
+
+I have prepared an interface as a listener for receiving response from the server API call. The listen takes a list of `Photo` as its parameter. That ensures, different list of images response from different sources should be converted to `Photo` type before passing it to the `PhotoListFragment`. 
