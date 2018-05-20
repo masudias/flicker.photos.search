@@ -62,4 +62,9 @@ The `ImageView` which renders the images through Glide, is made to adjust its vi
 
 I have used `DatabaseOpenHelper` and `DataHelper` class along with some other utility provider classes to handle the database operations. The classes under `domain` package are needed to define the POJOs for database and the http requests. On the other hand, the `network` package includes the http request and response parser along with other uri builder, response listener interface and other necessary utilities.
 
-<!--## Keeping scalibility in mind-->
+## Keeping scalibility in mind
+Scalibility was a major concern throughout the application development process and I tried to keep things scalable for fetching images from different servers. In this application, there are two places where I concentrated most in this regard. 
+* Building a network layer so that its easier for me to adopt the changes of the other image sources. Definitely, we have to write a different parser along with building a differnt mechanism for API calling from each different server. However, I tried to follow the factory pattern here so that the network calling process can be generalized and can be integrated with the current application without much hassle. 
+* Caching the images in a generalized format so that images from any source can be cached. However, the I took only the attributes which are mandatory for displaying in our application and most likely to have in the response body when I am pulling images for different soources. 
+
+I am trying to describe them both in the following sub-sections. 
