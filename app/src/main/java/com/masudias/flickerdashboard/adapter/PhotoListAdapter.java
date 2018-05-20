@@ -120,7 +120,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             final String ownerName = photoList.get(pos).owner;
             final int imageHeight = photoList.get(pos).height;
             final int imageWidth = photoList.get(pos).width;
-            final String imageDimension = imageHeight + "x" + imageWidth;
+            final String imageDimension = imageHeight + " x " + imageWidth;
 
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
