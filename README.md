@@ -55,3 +55,11 @@ The entry point of the application is `FlickrDashboardActivity` which simply lau
 The `PhotoListFragment` does the heavy work. It has a simple `RecyclerView` in it, which displays the data fetched from server. However, as I have implemented a caching mechanism I had to manage the overall data display mechanism a bit differently. I am providing a flowchart here to describe the overall process flow.
 
 ![alt text](https://github.com/masudias/flickr.photos.search/blob/master/Screen%20Shot%202018-05-20%20at%207.37.43%20PM.png "Flowchart")
+
+For retriving information from cache I am using `LoaderManager` along with `LoaderCallback` functions which efficiently get the images stored from local sqlite database and serves the data to the calling `PhotoListFragment`. Once the data loading from cache is finished, it is immediately updated in the `RecyclerView` and if the application is online, I call the API to get photo list using Flickr API. Once the list is arrived from server, the images are smoothly replaced with the new images that we have got from calling the API. 
+
+The `ImageView` which renders the images through Glide, is made to adjust its view bounds, so that the images gets the proper aspect ratio and can be seen in full version when the images are loaded completely. I could achieve some performance improvement by setting a fixed height and width for the `ImageView` along with setting `RecyclerView.hasFixedSize(true)`. However, I thought that, the main focus of this application is to view photos, and it will be better to see the photos in full compromising a bit with the performance from UX point of view. 
+
+I have used `DatabaseOpenHelper` and `DataHelper` class along with some other utility provider classes to handle the database operations. The classes under `domain` package are needed to define the POJOs for database and the http requests. On the other hand, the `network` package includes the http request and response parser along with other uri builder, response listener interface and other necessary utilities.
+
+<!--## Keeping scalibility in mind-->
